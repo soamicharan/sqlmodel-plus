@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sqlmodel-plus"
-version = "0.2.0"
+version = "0.2.1"
 description = "Extend SQLModel functionalities."
 authors = ["Soami Charan <charansoami@gmail.com>"]
 readme = "README.md"

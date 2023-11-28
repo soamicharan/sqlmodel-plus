@@ -1,7 +1,7 @@
 # SQLModel Plus
 
-[![GitHub license badge](badges/badge-license.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Coverage](badges/coverage.svg)]()
+[![GitHub license badge](https://raw.githubusercontent.com/soamicharan/sqlmodel-plus/main/badges/badge-license.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Coverage](https://raw.githubusercontent.com/soamicharan/sqlmodel-plus/main/badges/coverage.svg)]()
 [![pypi](https://img.shields.io/pypi/v/sqlmodel-plus.svg)](https://pypi.python.org/pypi/sqlmodel-plus)
 
 ## Installation
