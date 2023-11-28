@@ -1,8 +1,12 @@
 # SQLModel Plus
 
+[![GitHub license badge](badges/badge-license.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Coverage](badges/coverage.svg)]()
+[![pypi](https://img.shields.io/pypi/v/sqlmodel-plus.svg)](https://pypi.python.org/pypi/sqlmodel-plus)
+
 ## Installation
 
-Install package using pip -> pip install sqlmodel-plus
+Install package using pip -> `pip install sqlmodel-plus`
 
 ## Usage
 
@@ -39,6 +43,7 @@ Hero.find_by_id({"id": 1, "version": 3})
 
 #### save
 
+Create or Update Record in database.
 ```python
 hero = Hero(id=1, name="hero_1", secret_name="Secret_hero").save()
 hero.name = "hero_2"
@@ -48,16 +53,26 @@ hero.save()
 
 #### create
 
+Create new record in database.
 ```python
 Hero(id=1, name="hero_1", secret_name="Secret_hero").create()
 ```
 
 #### update
 
+Update record in database.
 ```python
 hero = Hero(id=1, name="hero_1", secret_name="Secret_hero")
 hero.name = "hero_2"
 hero.update()
+```
+
+#### delete
+
+Delete record from database
+```python
+hero = Hero(id=1, name="hero_1", secret_name="Secret_hero").save()
+hero.delete()
 ```
 
 #### select
@@ -71,9 +86,8 @@ statement.where(Hero.id == 1)
 
 ```python
 statement = Hero.select.where(Hero.id == 1)
-Hero.query(statement).all()
-Hero.query("SELECT id FROM hero").first()
-Hero.query(statement).count()
+Hero.query(statement).all
+Hero.query("SELECT id FROM hero").first
 ```
 
 #### Session
@@ -84,4 +98,12 @@ session.exec(Hero.select).all()
 
 with Hero.Session as session:
     session.exec(Hero.select.where(Hero.id == 1)).first()
+```
+
+#### create_tables
+
+Create tables in database. \
+It is equivalant of `SQLModel.metadata.create_all` method where you don't need to provide bind parameter.
+```python
+SQLModelPlus.create_tables()
 ```

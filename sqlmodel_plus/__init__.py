@@ -1,1 +1,1 @@
-from sqlmodel_plus.sqlmodel_plus import SQLModelPlus, EngineException
+from sqlmodel_plus.sqlmodel_plus import EngineException, SQLModelPlus
