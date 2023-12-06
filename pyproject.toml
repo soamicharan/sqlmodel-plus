@@ -1,13 +1,14 @@
 [tool.poetry]
 name = "sqlmodel-plus"
-version = "0.2.1"
+version = "0.2.2"
 description = "Extend SQLModel functionalities."
 authors = ["Soami Charan <charansoami@gmail.com>"]
 readme = "README.md"
 packages = [{include = "sqlmodel_plus"}]
 
 [tool.poetry.dependencies]
-sqlmodel = "^0.0.12"
+python = "^3.8"
+sqlmodel = "^0.0.14"
 
 [tool.poetry.group.test.dependencies]
 pre-commit = "^3.5.0"

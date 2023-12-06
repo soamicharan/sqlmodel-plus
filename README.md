@@ -107,3 +107,32 @@ It is equivalant of `SQLModel.metadata.create_all` method where you don't need t
 ```python
 SQLModelPlus.create_tables()
 ```
+
+## Handle multiple database
+
+If you have multiple databases ORM models, then you use `__scope__` class attribute to define database scopes. \
+Set `__scope__` variable to any unique identifier string to identify databases.
+
+```python
+from sqlalchemy.orm import registry
+from sqlmodel_plus import SQLModelPlus
+from typing import Optional
+from sqlmodel import Field
+class DatabaseA(SQLModelPlus, registry=registry()):
+    __scope__ = "db1"
+
+class DatabaseB(SQLModelPlus, registry=registry()):
+    __scope__ = "db2"
+
+DatabaseA.set_engine(create_engine(f"sqlite:///database_A.db"))
+
+DatabaseB.set_engine(create_engine(f"sqlite:///database_B.db"))
+
+# This uses DatabaseA as base ORM model and interacts with database_A
+class TableA(DatabaseA, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+# This uses DatabaseB as base ORM model and interacts with database_B
+class TableB(DatabaseB, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+```

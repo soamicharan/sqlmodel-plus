@@ -22,38 +22,47 @@ def test_session():
 
 
 def test_save():
-    assert Hero(id=1, name="hero_1").save() == Hero(id=1, name="hero_1")
+    assert (
+        Hero(id=1, name="hero_1").save().model_dump()
+        == Hero(id=1, name="hero_1").model_dump()
+    )
     hero = Hero.find_by_id(1)
-    assert hero == Hero(id=1, name="hero_1")
+    assert hero.model_dump() == Hero(id=1, name="hero_1").model_dump()
     hero.name = "hero_2"
-    assert hero.save() == Hero(id=1, name="hero_2")
-    assert Hero.find_by_id(1) == Hero(id=1, name="hero_2")
+    assert hero.save().model_dump() == Hero(id=1, name="hero_2").model_dump()
+    assert Hero.find_by_id(1).model_dump() == Hero(id=1, name="hero_2").model_dump()
 
 
 def test_create():
-    assert Hero(id=2, name="hero_1").create() == Hero(id=2, name="hero_1")
-    assert Hero.find_by_id(2) == Hero(id=2, name="hero_1")
+    assert (
+        Hero(id=2, name="hero_1").create().model_dump()
+        == Hero(id=2, name="hero_1").model_dump()
+    )
+    assert Hero.find_by_id(2).model_dump() == Hero(id=2, name="hero_1").model_dump()
 
 
 def test_update():
-    assert Hero(id=3, name="hero_3").save() == Hero(id=3, name="hero_3")
+    assert (
+        Hero(id=3, name="hero_3").save().model_dump()
+        == Hero(id=3, name="hero_3").model_dump()
+    )
     hero = Hero.find_by_id(3)
-    assert hero == Hero(id=3, name="hero_3")
+    assert hero.model_dump() == Hero(id=3, name="hero_3").model_dump()
     hero.name = "hero_4"
-    assert hero.update() == Hero(id=3, name="hero_4")
-    assert Hero.find_by_id(3) == Hero(id=3, name="hero_4")
+    assert hero.update().model_dump() == Hero(id=3, name="hero_4").model_dump()
+    assert Hero.find_by_id(3).model_dump() == Hero(id=3, name="hero_4").model_dump()
 
 
 def test_find_by_id():
     hero = Hero(id=4, name="hero_5").save()
-    assert Hero.find_by_id(4) == hero
+    assert Hero.find_by_id(4).model_dump() == hero.model_dump()
     assert Hero.find_by_id(10) is None
 
 
 def test_delete():
     hero_1 = Hero(id=1, name="hero_1").save()
-    assert Hero.find_by_id(1) == hero_1
-    assert hero_1.delete() == hero_1
+    assert Hero.find_by_id(1).model_dump() == hero_1.model_dump()
+    assert hero_1.delete().model_dump() == hero_1.model_dump()
     assert Hero.find_by_id(1) is None
 
 
@@ -62,8 +71,11 @@ def test_query():
     hero_2 = Hero(id=2, name="hero_2").save()
 
     query = Hero.query(Hero.select.where(Hero.id.in_([1, 2])).order_by(Hero.id))
-    assert query.first == hero_1
-    assert query.all == [hero_1, hero_2]
+    assert query.first.model_dump() == hero_1.model_dump()
+    assert [row.model_dump() for row in query.all] == [
+        hero_1.model_dump(),
+        hero_2.model_dump(),
+    ]
 
     query = Hero.query("SELECT id FROM hero WHERE id = :id", {"id": 1})
     assert query.first == (1,)
